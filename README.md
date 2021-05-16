@@ -1,32 +1,16 @@
-Currently WIP.
-
 # :diamond_shape_with_a_dot_inside: VRChat Friends Mover :diamond_shape_with_a_dot_inside:
 
 This is a way to send friends requests to all friends of an another VRChat account's friends :tada:
 
-TODO: Put pictures onto here to explain the usage.
+```shell-session
+$ source_user=$(echo -n source-VRChat-username:password | base64)
+$ curl 'https://api.vrchat.cloud/api/1/auth/user?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26' -H "Authorization: Basic $source_user" > auth.json
 
-## Notice
-### Why do you want to my VRChat user name and the password?
+$ sender_user=$(echo -n your-VRChat-username:password | base64)
+# Run below **ONLY** if you are using 2FA
+$ sender_user_auth=$(curl -X POST -d 'code=<2fa-code>' 'https://api.vrchat.cloud/api/1/auth/twofactorauth/totp/verify' -H "Authorization: Basic $sender_user" -i | grep 'set-cookie: auth=' | cut -d= -f2 | cut -d';' -f1)
+# Or if you are not using 2FA
+$ sender_user_auth=$(curl 'https://api.vrchat.cloud/api/1/auth/user?apiKey=JlE5Jldo5Jibnk5O5hTx6XVqsJu4WJ26' -H "Authorization: Basic $sender_user" -i | grep 'set-cookie: auth=' | cut -d= -f2 | cut -d';' -f1)
 
-This requires your VRChat user name and the password, but this is used only for access to VRChat API.
-
-Please check codes of this repository if you are careful :+1:
-
-### Does this advocate my account to ban?
-
-**The possible is almost nothing** if you don't specify `--unsafe-fast`.
-
-Using this script has a **little** possible to advocate ban :relaxed::green_heart:  
-This reason depends the limitation of VRChat API.  
-Please see below 2 terms and the page.
-
-> - Do not make queries to the API more than once per 60 seconds.
-> - Abuse of the API may result in account termination.
-
-- [Disclaimer - VRChat API Documentation](https://vrchatapi.github.io/#/README?id=disclaimer)
-
-But this script avoids that disclaimer by sleeping when you don't specify `--unsafe-fast`.
-**Almost OK**.
-
-Please have the risk yourself in any cases. Sorry!
+$ ./send.sh "$sender_user_auth"
+```
