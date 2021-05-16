@@ -1,13 +1,22 @@
 {
   "compilerOptions": {
     "target": "ES5",
-    "module": "ES2015",
+    "module": "commonjs",
+    "moduleResolution": "Node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
     "baseUrl": ".",  // for ts-node
+    "paths": {
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    },
   },
   "compileOnSave": true,
   "include": [

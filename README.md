@@ -1,3 +1,5 @@
+Currently WIP.
+
 # :diamond_shape_with_a_dot_inside: VRChat Friends Mover :diamond_shape_with_a_dot_inside:
 
 This is a way to send friends requests to all friends of an another VRChat account's friends :tada:
