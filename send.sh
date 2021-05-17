@@ -13,8 +13,8 @@ send_friend_request () {
 
   if echo "$result" | grep 'You are making too many friend requests' > /dev/null 2>&1 ; then
     echo "Error! $result"
-    echo $'OK!! I\'ll sleep 30min!'
-    sleep $((60 * 30))
+    echo $'OK!! I\'ll sleep an hour!'
+    sleep $((60 * 60))
     send_friend_request "$friend_id"
     return
   fi
